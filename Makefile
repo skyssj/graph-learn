@@ -106,7 +106,7 @@ so:protobuf grpc glog gtest proto common platform service core
 	@mkdir -p $(BIN_DIR)
 	$(CXX) $(CXXFLAGS) -shared $(PROTO_OBJ) $(COMMON_OBJ) $(PLATFORM_OBJ) $(SERVICE_OBJ) $(CORE_OBJ) \
 		-L$(ROOT) -L$(GLOG_LIB) -L$(PROTOBUF_LIB) -L$(GRPC_LIB) \
-		-lglog -lprotobuf -lgrpc++ -lgrpc -lgpr -lupb \
+		-lglog -lprotobuf -lgrpc++ -lgrpc -lgpr -lupb -lgflags \
 		-o $(LIB_DIR)/libgraphlearn_shared.so
 
 ####################################### proto begin ########################################
@@ -276,7 +276,7 @@ $(CORE_BUILT_DIR)/runner/%.o:$(CORE_DIR)/runner/%.cc $(CORE_H)
 core:$(CORE_OBJ)
 ####################################### core done ########################################
 
-TEST_FLAG := -I$(GTEST_INCLUDE) -L$(GTEST_LIB) -L$(LIB_DIR) -L$(GRPC_LIB) -L/lib64 -lgraphlearn_shared -lgtest -lgtest_main -lstdc++ -lgrpc++ -lgrpc -lgpr -lupb
+TEST_FLAG := -I$(GTEST_INCLUDE) -L$(GTEST_LIB) -L$(LIB_DIR) -L$(GRPC_LIB) -L/lib64 -lgraphlearn_shared -lgtest -lgtest_main -lstdc++ -lgrpc++ -lgrpc -lgpr -lupb -lgflags
 
 test:so gtest
 	$(CXX) $(CXXFLAGS) graphlearn/common/base/test/closure_unittest.cpp -o built/bin/closure_unittest $(TEST_FLAG)
